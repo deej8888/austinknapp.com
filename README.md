@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Austin Knapp - Personal Website
 
-## Getting Started
+Premium one-page portfolio built with Next.js App Router, TypeScript, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Tech Stack
+- Next.js 16 (App Router)
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- `next/image`
 
+## Run Locally
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for Production
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment Notes (Railway / Vercel)
+- This repo is deployment-ready as a standard Next.js app.
+- Build command: `npm run build`
+- Start command: `npm start`
+- Ensure `NODE_ENV=production` in production environments.
 
-## Learn More
+## Project Structure
+```text
+app/
+  globals.css
+  layout.tsx
+  opengraph-image.tsx
+  page.tsx
+  robots.ts
+  sitemap.ts
+  twitter-image.tsx
+components/
+  Capabilities.tsx
+  Contact.tsx
+  Hero.tsx
+  Navbar.tsx
+  ProofChips.tsx
+  ProjectCard.tsx
+  ProjectModal.tsx
+  RecruiterFAQ.tsx
+  RecruiterSnapshot.tsx
+  Section.tsx
+  Skills.tsx
+  SkillsEvidence.tsx
+  Timeline.tsx
+public/
+  profile-grid.svg
+  resume.pdf
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content Updates
+- Main content data is in `app/page.tsx`.
+- Site-wide metadata is in `app/layout.tsx`.
+- Visual theme tokens and motion styling are in `app/globals.css`.
+- Recruiter-focused sections include snapshot, technical evidence, and FAQ blocks.
