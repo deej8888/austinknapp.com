@@ -21,27 +21,80 @@ export default function Navbar() {
 
   useEffect(() => {
     const sections = navItems
-      .map((item) => document.getElementById(item.id))
-      .filter((section): section is HTMLElement => Boolean(section));
+      .map((item) => {
+        const element = document.getElementById(item.id);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]?.target.id) {
-          setActiveSection(visible[0].target.id);
+        if (!element) {
+          return null;
         }
-      },
-      {
-        rootMargin: "-45% 0px -45% 0px",
-        threshold: [0.15, 0.35, 0.6],
-      },
-    );
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+        return {
+          id: item.id,
+          element,
+        };
+      })
+      .filter(
+        (
+          section,
+        ): section is {
+          id: string;
+          element: HTMLElement;
+        } => Boolean(section),
+      );
+
+    let frameId: number | null = null;
+
+    const updateActiveSection = () => {
+      const scrollMarker = window.scrollY + 140;
+      const isAtPageBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+
+      if (isAtPageBottom) {
+        setActiveSection(navItems[navItems.length - 1].id);
+        return;
+      }
+
+      let nextActiveSection = sections[0]?.id ?? "hero";
+
+      for (const section of sections) {
+        if (section.element.offsetTop <= scrollMarker) {
+          nextActiveSection = section.id;
+          continue;
+        }
+
+        break;
+      }
+
+      setActiveSection(nextActiveSection);
+    };
+
+    const requestUpdate = () => {
+      if (frameId !== null) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null;
+        updateActiveSection();
+      });
+    };
+
+    updateActiveSection();
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("hashchange", requestUpdate);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      window.removeEventListener("hashchange", requestUpdate);
+    };
   }, []);
 
   return (
@@ -67,6 +120,7 @@ export default function Navbar() {
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
+                    onClick={() => setActiveSection(item.id)}
                     className={`rounded-full px-3 py-1.5 text-sm transition ${
                       isActive
                         ? "bg-white/12 text-white"

@@ -65,22 +65,6 @@ export default function Hero() {
                 I build systems that turn ideas into real, working products.
               </h1>
             </div>
-
-            <p className="max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
-              This site is the closer look. Right now I split time between
-              production analytics work at Motor Intelligence, co-founding
-              RentPad AI, and building through Sequoia Apps with a bias toward
-              things that ship and actually remove operational pain.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <a href="#projects" className="btn-primary px-5 py-3 text-sm">
-              View Projects
-            </a>
-            <a href="#contact" className="btn-secondary px-5 py-3 text-sm">
-              Reach Out
-            </a>
           </div>
         </motion.div>
 
@@ -99,7 +83,7 @@ export default function Hero() {
                 Field Notes
               </p>
               <h2 className="mt-3 max-w-md text-3xl leading-tight font-semibold text-white sm:text-[2.2rem]">
-                What this site is actually for.
+                Notes on my work
               </h2>
             </div>
 
