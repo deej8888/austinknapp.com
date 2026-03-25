@@ -2,46 +2,48 @@
 
 import Script from "next/script";
 import { useState } from "react";
+import AmbientBackdrop from "@/components/AmbientBackdrop";
 import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import InteractionEffects from "@/components/InteractionEffects";
 import Navbar from "@/components/Navbar";
-import ProofChips from "@/components/ProofChips";
+import ProofChips, { type ProofItem } from "@/components/ProofChips";
 import ProjectCard, { type Project } from "@/components/ProjectCard";
 import ProjectModal from "@/components/ProjectModal";
 import RecruiterFAQ from "@/components/RecruiterFAQ";
-import RecruiterSnapshot from "@/components/RecruiterSnapshot";
 import Section from "@/components/Section";
 import Skills from "@/components/Skills";
 import SkillsEvidence from "@/components/SkillsEvidence";
 import Timeline, { type TimelineItem } from "@/components/Timeline";
 
-const proofChips = [
-  "1,000,000+ annual page views deployed",
-  "Built multi-tenant SaaS platforms",
-  "ML forecasting + automation pipelines",
-  "Python | SQL | TypeScript | Node.js",
-];
-
-const roleTargets = [
-  "AI Engineer",
-  "Data Engineer",
-  "Machine Learning Engineer",
-  "Founding Engineer",
-];
-
-const interviewTopics = [
-  "ML forecasting and automation pipeline design",
-  "Multi-tenant SaaS architecture and role-based workflows",
-  "Data modeling, feature engineering, and model evaluation",
-  "Production delivery tradeoffs across speed, reliability, and scope",
-];
-
-const recruiterNotes = [
-  "Location: Wayne, NJ (open to remote)",
-  "Most production code is private due to NDA agreements",
-  "Can provide architecture walkthroughs and implementation decisions",
+const proofChips: ProofItem[] = [
+  {
+    label: "Traffic",
+    value: "1,000,000+",
+    note: "annual page views supported across deployed work",
+    icon: "traffic",
+  },
+  {
+    label: "Product",
+    value: "Multi-tenant SaaS",
+    note: "built from scratch with auth, workflows, onboarding, and billing",
+    icon: "product",
+  },
+  {
+    label: "ML Delivery",
+    value: "Forecasting + automation",
+    note: "production pipelines designed for recurring operational use",
+    icon: "ml",
+    compact: true,
+  },
+  {
+    label: "Core Stack",
+    value: "Python / SQL / TypeScript / Node.js",
+    note: "comfortable across backend systems, data work, and product delivery",
+    icon: "stack",
+    compact: true,
+  },
 ];
 
 const capabilities = [
@@ -75,29 +77,44 @@ const projects: Project[] = [
   {
     title: "RentPad AI",
     subtitle: "Multi-tenant AI property management SaaS",
+    summary:
+      "Founder-led product build spanning architecture, onboarding, pricing, and the day-to-day workflows landlords and tenants actually need.",
     bullets: [
       "Built and architected a multi-tenant platform supporting landlord and tenant workflows",
       "Designed onboarding and pricing; piloted with 8 landlords and property owners",
+      "Structured shared services for auth, billing, and notifications with Supabase and Stripe",
     ],
+    impact:
+      "This is the clearest example of end-to-end ownership across product decisions, system design, and shipping a real SaaS experience.",
     stack: ["TypeScript", "Node.js", "Supabase", "Railway", "Stripe"],
     detailsButtonLabel: "Details",
   },
   {
     title: "Motor Intelligence",
     subtitle: "ML estimation + incentive forecasting automation",
+    summary:
+      "Production-facing forecasting and process automation work built around recurring OEM incentive estimation and monthly operational workflows.",
     bullets: [
       "Automated OEM incentive forecasting with a machine-learning estimation approach",
       "Scaled monthly processing with Excel VBA automation pipelines integrated with cloud workflows",
+      "Built a repeatable monthly estimation and reporting workflow instead of one-off manual runs",
     ],
+    impact:
+      "Shows applied ML in a business setting where the work has to be usable, repeatable, and reliable inside real operating constraints.",
     stack: ["Python", "Excel VBA", "Forecasting", "Data Pipelines"],
   },
   {
     title: "NexStratus",
     subtitle: "Early-warning ML system for healthcare supply-chain risk",
+    summary:
+      "Capstone early-warning system focused on turning healthcare supply-chain signals into earlier, more actionable risk visibility.",
     bullets: [
       "Detected supply-chain risk up to 72 hours in advance",
       "Built an end-to-end analytics pipeline with feature engineering and model evaluation",
+      "Framed the system around earlier detection of disruption signals rather than retrospective reporting",
     ],
+    impact:
+      "A strong end-to-end ML example: problem framing, feature engineering, evaluation, and output designed for actual decisions.",
     stack: ["Python", "XGBoost", "Evaluation", "GitHub"],
   },
 ];
@@ -199,22 +216,22 @@ const principles = [
 
 const recruiterFAQ = [
   {
-    question: "How can I evaluate technical depth if code is private?",
+    question: "How can I evaluate technical depth if the code is private?",
     answer:
       "You can review project architecture details here and request a walkthrough focused on design decisions, tradeoffs, and delivery constraints.",
   },
   {
-    question: "What role types are the best fit?",
+    question: "What kinds of roles are the best fit?",
     answer:
       "AI engineering, data engineering, and startup roles where technical ownership spans architecture through shipping.",
   },
   {
-    question: "What is the fastest way to start a hiring conversation?",
+    question: "What is the fastest way to reach out?",
     answer:
       "Email austinknapp155@gmail.com with role context and timeline. LinkedIn outreach is also active.",
   },
   {
-    question: "Why are some portfolio details limited?",
+    question: "Why are some project details intentionally limited?",
     answer:
       "Most production work is under NDA, so this portfolio emphasizes system scope, outcomes, and stack decisions without exposing private implementation.",
   },
@@ -229,7 +246,7 @@ const personJsonLd = {
   email: "mailto:austinknapp155@gmail.com",
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Wayne",
+    addressLocality: "New York Metropolitan Area",
     addressRegion: "NJ",
     addressCountry: "US",
   },
@@ -254,6 +271,7 @@ export default function Home() {
 
   return (
     <div className="mono-bg min-h-screen">
+      <AmbientBackdrop />
       <InteractionEffects />
       <Script
         id="person-jsonld"
@@ -266,23 +284,7 @@ export default function Home() {
       <main>
         <Hero />
 
-        <Section id="proof" className="pt-2">
-          <ProofChips chips={proofChips} />
-        </Section>
-
-        <Section id="snapshot" title="Recruiter Snapshot" eyebrow="Quick Fit">
-          <RecruiterSnapshot
-            roleTargets={roleTargets}
-            interviewTopics={interviewTopics}
-            recruiterNotes={recruiterNotes}
-          />
-        </Section>
-
-        <Section id="capabilities" title="Capabilities" eyebrow="Engineering Focus">
-          <Capabilities items={capabilities} />
-        </Section>
-
-        <Section id="projects" title="Featured Projects" eyebrow="Selected Work">
+        <Section id="projects" title="Selected Work" eyebrow="Projects">
           <div className="grid gap-6 lg:grid-cols-3">
             {projects.map((project) => (
               <ProjectCard
@@ -298,19 +300,35 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section id="evidence" title="Technical Evidence" eyebrow="Skills in Context">
+        <Section id="capabilities" title="What I Build" eyebrow="Work I Like">
+          <Capabilities items={capabilities} />
+        </Section>
+
+        <Section id="proof" className="pt-2">
+          <ProofChips chips={proofChips} />
+        </Section>
+
+        <Section
+          id="evidence"
+          title="What That Looks Like In Practice"
+          eyebrow="Execution"
+        >
           <SkillsEvidence rows={evidenceRows} />
         </Section>
 
-        <Section id="experience" title="Experience" eyebrow="Timeline">
+        <Section
+          id="experience"
+          title="Where I&apos;ve Been Spending Time"
+          eyebrow="Timeline"
+        >
           <Timeline items={timelineItems} />
         </Section>
 
-        <Section id="skills" title="Skills" eyebrow="Stack + Execution">
+        <Section id="skills" title="Tools + Working Style" eyebrow="How I Operate">
           <Skills groups={skillGroups} principles={principles} />
         </Section>
 
-        <Section id="faq" title="Recruiter FAQ" eyebrow="Hiring Support">
+        <Section id="faq" title="Questions People Usually Ask" eyebrow="FAQ">
           <RecruiterFAQ items={recruiterFAQ} />
         </Section>
 

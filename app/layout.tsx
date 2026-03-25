@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
   display: "swap",
 });
@@ -12,7 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://austinknapp.com"),
   title: "Austin Knapp | AI & Data Engineer | Founder",
   description:
-    "Austin Knapp is an AI and Data Engineer building ML systems, SaaS platforms, and production data pipelines.",
+    "Personal website of Austin Knapp, an AI and data engineer building ML systems, SaaS products, and production data pipelines.",
   keywords: [
     "Austin Knapp",
     "AI Engineer",
@@ -29,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Austin Knapp | AI & Data Engineer | Founder",
     description:
-      "Building ML systems, SaaS platforms, and data pipelines that ship.",
+      "Personal website of Austin Knapp, focused on AI systems, SaaS products, and production data work.",
     url: "https://austinknapp.com",
     siteName: "Austin Knapp",
     type: "website",
@@ -46,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Austin Knapp | AI & Data Engineer | Founder",
     description:
-      "Building ML systems, SaaS platforms, and data pipelines that ship.",
+      "Personal website of Austin Knapp, focused on AI systems, SaaS products, and production data work.",
     images: ["/twitter-image"],
   },
   icons: {
@@ -61,7 +67,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body
+        className={`${manrope.variable} ${fraunces.variable} font-sans antialiased`}
+      >
         {children}
       </body>
     </html>

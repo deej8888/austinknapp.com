@@ -45,13 +45,18 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(6,6,7,0.82)] backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(8,10,15,0.68)] backdrop-blur-xl">
       <div className="container-shell flex h-16 items-center justify-between gap-6">
         <a
           href="#hero"
-          className="text-sm font-semibold tracking-[0.2em] text-white uppercase"
+          className="flex flex-col leading-none"
         >
-          Austin Knapp
+          <span className="text-[0.55rem] font-semibold tracking-[0.32em] text-white/45 uppercase">
+            Personal Website
+          </span>
+          <span className="mt-1 text-sm font-semibold tracking-[0.2em] text-white uppercase">
+            Austin Knapp
+          </span>
         </a>
 
         <nav aria-label="Primary" className="hidden lg:block">
@@ -80,8 +85,8 @@ export default function Navbar() {
           <a href="/resume.pdf" download className="btn-secondary px-4 py-2 text-sm">
             Resume
           </a>
-          <a href="#contact" className="btn-secondary px-4 py-2 text-sm">
-            Let&apos;s Talk
+          <a href="#contact" className="btn-primary px-4 py-2 text-sm">
+            Say Hello
           </a>
         </div>
       </div>

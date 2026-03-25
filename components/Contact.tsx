@@ -12,8 +12,13 @@ export default function Contact() {
       viewport={{ once: true, amount: 0.35 }}
     >
       <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-        Let&apos;s build something.
+        Have something interesting?
       </h2>
+      <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[var(--muted)] sm:text-base">
+        Hiring, collaborating, or just want to talk about AI systems, product,
+        or messy data problems that need to become real software? Email is the
+        fastest way to reach me.
+      </p>
       <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
         <a
           href="mailto:austinknapp155@gmail.com?subject=Intro%20Conversation"
@@ -42,7 +47,8 @@ export default function Contact() {
         </a>
       </div>
       <p className="mt-5 text-sm text-[var(--muted)]">
-        Most production code is private due to NDA agreements.
+        Most production code is private because a lot of it was shipped under
+        NDA.
       </p>
     </motion.div>
   );

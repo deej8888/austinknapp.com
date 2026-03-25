@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #060606;
-  --bg-soft: #0d0d0e;
-  --surface: #111112;
-  --surface-soft: #161618;
-  --fg: #f5f5f5;
-  --muted: #a3a3aa;
-  --border: rgba(255, 255, 255, 0.14);
-  --accent: #ffffff;
-  --accent-strong: #f2f2f2;
+  --bg: #06070d;
+  --bg-soft: #0d1119;
+  --surface: rgba(13, 16, 24, 0.78);
+  --surface-soft: rgba(19, 23, 34, 0.9);
+  --fg: #f8f7f3;
+  --muted: #b4bccd;
+  --border: rgba(190, 204, 236, 0.18);
+  --accent: #f6f0e4;
+  --accent-strong: #ffffff;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-manrope);
 }
 
 * {
@@ -29,16 +29,26 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(
-      1000px 650px at 18% -12%,
-      rgba(255, 255, 255, 0.075),
+      900px 560px at 14% -8%,
+      rgba(142, 173, 255, 0.14),
       transparent 65%
     ),
-    linear-gradient(180deg, #0b0b0b 0%, #070707 55%, #050505 100%),
+    radial-gradient(
+      720px 460px at 84% 2%,
+      rgba(255, 223, 189, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0d121b 0%, #090b11 45%, #05060a 100%),
     var(--bg);
   color: var(--fg);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-manrope), sans-serif;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+}
+
+h1,
+h2 {
+  font-family: var(--font-fraunces), serif;
 }
 
 a {
@@ -87,18 +97,18 @@ a {
 .mono-bg::before {
   inset: 0;
   background:
+    radial-gradient(circle at 1px 1px, rgba(229, 236, 255, 0.12) 1px, transparent 0),
     linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.035) 1px,
-      transparent 1px
+      120deg,
+      rgba(255, 255, 255, 0.05),
+      transparent 20%,
+      transparent 80%,
+      rgba(255, 255, 255, 0.04)
     );
-  background-size: 42px 42px;
-  mask-image: radial-gradient(ellipse at 50% 20%, black 20%, transparent 78%);
+  background-size: 34px 34px, 100% 100%;
+  opacity: 0.34;
+  mask-image: radial-gradient(ellipse at 50% 12%, black 22%, transparent 82%);
+  animation: ambient-grid-shift 28s ease-in-out infinite alternate;
 }
 
 .mono-bg::after {
@@ -106,12 +116,12 @@ a {
   background: radial-gradient(
     ellipse at center,
     transparent 30%,
-    rgba(0, 0, 0, 0.48) 100%
+    rgba(0, 0, 0, 0.56) 100%
   );
 }
 
 .container-shell {
-  width: min(1120px, calc(100% - 2.5rem));
+  width: min(1140px, calc(100% - 2.5rem));
   margin-inline: auto;
 }
 
@@ -124,16 +134,19 @@ a {
   --card-tilt-y: 0deg;
   --card-lift: 0px;
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 1.35rem;
   background: linear-gradient(
     180deg,
-    rgba(20, 20, 22, 0.95) 0%,
-    rgba(14, 14, 16, 0.95) 100%
+    rgba(18, 22, 31, 0.78) 0%,
+    rgba(10, 12, 19, 0.92) 100%
   );
+  backdrop-filter: blur(18px);
   transform: perspective(1100px) rotateX(var(--card-tilt-x))
     rotateY(var(--card-tilt-y)) translateY(var(--card-lift));
   transform-style: preserve-3d;
-  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 18px 54px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transition:
     transform 220ms ease,
     border-color 220ms ease,
@@ -142,10 +155,10 @@ a {
 
 .card-premium:hover {
   --card-lift: -4px;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(214, 226, 255, 0.32);
   box-shadow:
-    0 20px 56px rgba(0, 0, 0, 0.56),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
+    0 22px 60px rgba(0, 0, 0, 0.46),
+    0 0 0 1px rgba(214, 226, 255, 0.09);
 }
 
 .btn-primary {
@@ -154,10 +167,10 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  border-radius: 0.85rem;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  background: linear-gradient(180deg, #ffffff 0%, var(--accent-strong) 100%);
-  color: #050505;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 246, 228, 0.86);
+  background: linear-gradient(180deg, #fff9ef 0%, var(--accent) 100%);
+  color: #07080d;
   font-weight: 600;
   transform: translate3d(var(--btn-x), var(--btn-y), 0);
   transition:
@@ -170,8 +183,8 @@ a {
 .btn-primary:hover {
   transform: translate3d(var(--btn-x), calc(var(--btn-y) - 2px), 0);
   box-shadow:
-    0 14px 28px rgba(0, 0, 0, 0.58),
-    0 0 0 1px rgba(255, 255, 255, 0.18);
+    0 16px 32px rgba(0, 0, 0, 0.48),
+    0 0 0 1px rgba(255, 244, 224, 0.22);
 }
 
 .btn-secondary {
@@ -180,10 +193,11 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  border-radius: 0.85rem;
+  border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(15, 15, 16, 0.76);
-  color: #e8e8eb;
+  background: rgba(13, 16, 24, 0.68);
+  color: #eef1f7;
+  backdrop-filter: blur(14px);
   font-weight: 500;
   transform: translate3d(var(--btn-x), var(--btn-y), 0);
   transition:
@@ -194,19 +208,19 @@ a {
 
 .btn-secondary:hover {
   transform: translate3d(var(--btn-x), calc(var(--btn-y) - 2px), 0);
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(20, 20, 22, 0.88);
+  border-color: rgba(214, 226, 255, 0.34);
+  background: rgba(18, 21, 30, 0.88);
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(206, 217, 247, 0.16);
+  background: rgba(218, 228, 255, 0.05);
   padding: 0.3rem 0.65rem;
   font-size: 0.75rem;
-  color: #d1d1d6;
+  color: #d8dfef;
 }
 
 .compact-line {
@@ -242,11 +256,117 @@ a {
   width: 112%;
   height: 132%;
   background:
-    radial-gradient(circle at 30% 45%, rgba(255, 255, 255, 0.14), transparent 62%),
-    radial-gradient(circle at 70% 42%, rgba(255, 255, 255, 0.08), transparent 66%);
+    radial-gradient(circle at 30% 45%, rgba(166, 192, 255, 0.22), transparent 60%),
+    radial-gradient(circle at 70% 42%, rgba(255, 227, 191, 0.16), transparent 66%);
   filter: blur(40px);
-  opacity: 0.38;
+  opacity: 0.58;
   animation: headline-glow-drift 8s ease-in-out infinite alternate;
+}
+
+.hero-note {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(204, 216, 247, 0.15);
+  border-radius: 1.2rem;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 20, 29, 0.76) 0%,
+    rgba(12, 14, 21, 0.94) 100%
+  );
+  padding: 1rem;
+  backdrop-filter: blur(12px);
+}
+
+.hero-note::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    transparent 35%,
+    transparent 70%,
+    rgba(162, 190, 255, 0.06)
+  );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ambient-stage {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-stage::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(143, 173, 255, 0.18), transparent 26%),
+    radial-gradient(circle at 82% 12%, rgba(255, 225, 190, 0.14), transparent 24%),
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0.06), transparent 30%);
+  filter: blur(18px);
+  animation: ambient-stage-pulse 16s ease-in-out infinite alternate;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+.ambient-orb-one {
+  top: 8%;
+  left: -10rem;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(126, 158, 246, 0.2), transparent 70%);
+  animation: orb-float-one 22s ease-in-out infinite alternate;
+}
+
+.ambient-orb-two {
+  top: 22%;
+  right: -12rem;
+  width: 24rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgba(255, 219, 186, 0.16), transparent 72%);
+  animation: orb-float-two 26s ease-in-out infinite alternate;
+}
+
+.ambient-orb-three {
+  bottom: -8rem;
+  left: 24%;
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(205, 221, 255, 0.12), transparent 72%);
+  animation: orb-float-three 24s ease-in-out infinite alternate;
+}
+
+.ambient-snow {
+  position: absolute;
+  inset: -12vh 0 0;
+}
+
+.snow-particle {
+  position: absolute;
+  top: -12vh;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.3) 68%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.12);
+  opacity: var(--flake-opacity);
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 @keyframes headline-glow-drift {
@@ -255,5 +375,66 @@ a {
   }
   to {
     transform: translate3d(2%, 1%, 0) scale(1.015);
+  }
+}
+
+@keyframes ambient-grid-shift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-1.2%, 1.8%, 0);
+  }
+}
+
+@keyframes ambient-stage-pulse {
+  from {
+    transform: scale(0.98) translate3d(0, 0, 0);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1.04) translate3d(1%, -1%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes orb-float-one {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(4rem, 3rem, 0);
+  }
+}
+
+@keyframes orb-float-two {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-3rem, 4rem, 0);
+  }
+}
+
+@keyframes orb-float-three {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(2rem, -3rem, 0);
+  }
+}
+
+@keyframes snowfall {
+  from {
+    transform: translate3d(var(--drift-start), -12vh, 0) scale(0.86);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--flake-opacity);
+  }
+  to {
+    transform: translate3d(var(--drift-end), 112vh, 0) scale(1.14);
+    opacity: 0.06;
   }
 }
