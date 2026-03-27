@@ -2,7 +2,21 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import type { ReactNode } from "react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const CUMULATIVE_VISITS_BASE = 812493;
+const MONTHLY_VISITS = 70000;
+const LOAD_IN_COUNT_START = 800000;
+const LOAD_IN_DURATION_MS = 1800;
+const BASELINE_TIMESTAMP = new Date("2026-03-27T00:00:00-04:00").getTime();
+const MS_PER_30_DAY_MONTH = 30 * 24 * 60 * 60 * 1000;
+const VISITS_PER_MS = MONTHLY_VISITS / MS_PER_30_DAY_MONTH;
+const numberFormatter = new Intl.NumberFormat("en-US");
+
+function getEstimatedVisits(now = Date.now()) {
+  const elapsed = Math.max(0, now - BASELINE_TIMESTAMP);
+  return CUMULATIVE_VISITS_BASE + Math.floor(elapsed * VISITS_PER_MS);
+}
 
 type IconLinkProps = {
   href: string;
@@ -31,6 +45,7 @@ function IconLink({ href, label, children, download }: IconLinkProps) {
 
 export default function Hero() {
   const targetRef = useRef<HTMLElement | null>(null);
+  const [estimatedVisits, setEstimatedVisits] = useState(LOAD_IN_COUNT_START);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
@@ -38,6 +53,47 @@ export default function Hero() {
 
   const titleY = useTransform(scrollYProgress, [0, 1], [0, -22]);
   const cardY = useTransform(scrollYProgress, [0, 1], [0, 26]);
+
+  useEffect(() => {
+    const targetVisits = getEstimatedVisits();
+    let animationFrameId = 0;
+    let intervalId = 0;
+
+    const animateCountIn = (startTime: number) => {
+      const frame = (now: number) => {
+        const progress = Math.min(
+          1,
+          (now - startTime) / LOAD_IN_DURATION_MS,
+        );
+        const easedProgress = 1 - (1 - progress) ** 3;
+        const nextValue = Math.floor(
+          LOAD_IN_COUNT_START +
+            (targetVisits - LOAD_IN_COUNT_START) * easedProgress,
+        );
+
+        setEstimatedVisits(nextValue);
+
+        if (progress < 1) {
+          animationFrameId = window.requestAnimationFrame(frame);
+          return;
+        }
+
+        setEstimatedVisits(targetVisits);
+        intervalId = window.setInterval(() => {
+          setEstimatedVisits(getEstimatedVisits());
+        }, 1000);
+      };
+
+      animationFrameId = window.requestAnimationFrame(frame);
+    };
+
+    animationFrameId = window.requestAnimationFrame(animateCountIn);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      window.clearInterval(intervalId);
+    };
+  }, []);
 
   return (
     <section
@@ -50,7 +106,7 @@ export default function Hero() {
           <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-[#eef4ff] shadow-[0_0_18px_rgba(196,214,255,0.8)]" />
             <span className="text-[0.65rem] font-semibold tracking-[0.32em] text-white/65 uppercase">
-              Personal site of Austin Knapp
+              Hi, I&apos;m Austin
             </span>
           </div>
 
@@ -61,9 +117,19 @@ export default function Hero() {
 
             <div className="headline-wrap">
               <span aria-hidden className="headline-glow" />
-              <h1 className="max-w-3xl text-5xl leading-[0.97] font-semibold tracking-tight text-white sm:text-6xl lg:text-[5.2rem]">
+              <h1 className="max-w-3xl text-4xl leading-[0.98] font-semibold tracking-tight text-white sm:text-5xl lg:text-[4.35rem]">
                 I build systems that turn ideas into real, working products.
               </h1>
+            </div>
+
+            <div className="max-w-xl space-y-3">
+              <p className="text-sm leading-6 text-[var(--muted)]">
+                Cumulative visits across sites I&apos;ve built based on website
+                view analytics trackers
+              </p>
+              <p className="text-5xl font-semibold tracking-tight text-white tabular-nums sm:text-6xl">
+                {numberFormatter.format(estimatedVisits)}
+              </p>
             </div>
           </div>
         </motion.div>
