@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
+import headshot from "../Headshot.jpg";
 
 const CUMULATIVE_VISITS_BASE = 813687;
 const MONTHLY_VISITS = 70000;
@@ -111,8 +113,9 @@ export default function Hero() {
           </div>
 
           <div className="space-y-6">
-            <p className="text-xs font-semibold tracking-[0.28em] text-white/50 uppercase">
-              New Jersey / New York Metro / Open to Remote / AI, Data, Product
+            <p className="text-xs font-semibold tracking-[0.16em] text-white/50 uppercase">
+              AI, data, and product systems builder focused on real-world
+              deployment
             </p>
 
             <div className="headline-wrap">
@@ -147,27 +150,35 @@ export default function Hero() {
             className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"
           />
 
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[0.68rem] font-semibold tracking-[0.28em] text-white/50 uppercase">
-                Field Notes
-              </p>
-              <h2 className="mt-3 max-w-md text-3xl leading-tight font-semibold text-white sm:text-[2.2rem]">
-                Notes on my work
-              </h2>
-            </div>
-
-            <div className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-xs text-white/60">
-              2026
-            </div>
+          <div>
+            <p className="text-[0.68rem] font-semibold tracking-[0.28em] text-white/50 uppercase">
+              Field Notes
+            </p>
+            <h2 className="mt-3 max-w-md text-3xl leading-tight font-semibold text-white sm:text-[2.2rem]">
+              How I build
+            </h2>
           </div>
 
-          <p className="mt-5 max-w-lg text-sm leading-7 text-[var(--muted)]">
-            I like projects where model quality, product decisions, and
-            delivery constraints all matter at the same time. Most of the code
-            I ship lives in private repos or behind NDA walls, so this page
-            focuses on scope, systems, and how I think.
-          </p>
+          <div className="mt-5 text-sm leading-7 text-[var(--muted)]">
+            <div className="relative float-right mb-3 ml-5 h-32 w-32 overflow-hidden rounded-[1.2rem] border border-white/12 bg-white/[0.04] shadow-[0_18px_40px_rgba(0,0,0,0.28)] sm:mb-4 sm:ml-6 sm:h-36 sm:w-36">
+              <Image
+                src={headshot}
+                alt="Austin Knapp headshot"
+                fill
+                sizes="(min-width: 640px) 144px, 128px"
+                className="scale-[1.22] object-cover object-[center_40%]"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/10" />
+            </div>
+            <p className="max-w-lg">
+              I like projects where model quality, product decisions, and
+              delivery constraints all matter at the same time. Most of the
+              code I ship lives in private repos or behind NDA walls, so this
+              page focuses on scope, systems, and how I think.
+            </p>
+            <div className="clear-both" />
+          </div>
 
           <div className="mt-6 space-y-3">
             <article className="hero-note">

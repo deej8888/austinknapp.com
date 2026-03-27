@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type NavItem = {
   id: string;
@@ -17,6 +17,7 @@ const navItems: NavItem[] = [
 ];
 
 export default function Navbar() {
+  const headerRef = useRef<HTMLElement | null>(null);
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
@@ -45,7 +46,8 @@ export default function Navbar() {
     let frameId: number | null = null;
 
     const updateActiveSection = () => {
-      const scrollMarker = window.scrollY + 140;
+      const navHeight = headerRef.current?.offsetHeight ?? 64;
+      const activationLine = navHeight + 24;
       const isAtPageBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 2;
@@ -55,18 +57,46 @@ export default function Navbar() {
         return;
       }
 
-      let nextActiveSection = sections[0]?.id ?? "hero";
+      const visibleSections = sections
+        .map((section) => ({
+          ...section,
+          rect: section.element.getBoundingClientRect(),
+        }))
+        .filter(
+          (section) =>
+            section.rect.bottom > activationLine &&
+            section.rect.top < window.innerHeight,
+        );
 
-      for (const section of sections) {
-        if (section.element.offsetTop <= scrollMarker) {
-          nextActiveSection = section.id;
-          continue;
-        }
+      if (visibleSections.length > 0) {
+        const nextActiveSection = visibleSections.reduce((closest, section) => {
+          const closestDistance = Math.abs(closest.rect.top - activationLine);
+          const sectionDistance = Math.abs(section.rect.top - activationLine);
 
-        break;
+          if (sectionDistance < closestDistance) {
+            return section;
+          }
+
+          return closest;
+        }).id;
+
+        setActiveSection((current) =>
+          current === nextActiveSection ? current : nextActiveSection,
+        );
+        return;
       }
 
-      setActiveSection(nextActiveSection);
+      const fallbackSection = [...sections]
+        .reverse()
+        .find(
+          (section) =>
+            section.element.getBoundingClientRect().top <= activationLine,
+        );
+      const nextActiveSection = fallbackSection?.id ?? sections[0]?.id ?? "hero";
+
+      setActiveSection((current) =>
+        current === nextActiveSection ? current : nextActiveSection,
+      );
     };
 
     const requestUpdate = () => {
@@ -98,7 +128,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(8,10,15,0.68)] backdrop-blur-xl">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 border-b border-white/10 bg-[rgba(8,10,15,0.68)] backdrop-blur-xl"
+    >
       <div className="container-shell flex h-16 items-center justify-between gap-6">
         <a
           href="#hero"
