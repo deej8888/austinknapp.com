@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
-const CUMULATIVE_VISITS_BASE = 812493;
+const CUMULATIVE_VISITS_BASE = 813687;
 const MONTHLY_VISITS = 70000;
 const LOAD_IN_COUNT_START = 800000;
 const LOAD_IN_DURATION_MS = 1800;
@@ -105,7 +105,7 @@ export default function Hero() {
         <motion.div style={{ y: titleY }} className="space-y-8">
           <div className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.05] px-4 py-2">
             <span className="h-2 w-2 rounded-full bg-[#eef4ff] shadow-[0_0_18px_rgba(196,214,255,0.8)]" />
-            <span className="text-[0.65rem] font-semibold tracking-[0.32em] text-white/65 uppercase">
+            <span className="text-[0.82rem] font-semibold tracking-[0.24em] text-white/65 uppercase">
               Hi, I&apos;m Austin
             </span>
           </div>
@@ -124,11 +124,15 @@ export default function Hero() {
 
             <div className="max-w-xl space-y-3">
               <p className="text-sm leading-6 text-[var(--muted)]">
-                Cumulative visits across sites I&apos;ve built based on website
-                view analytics trackers
+                70,000+ monthly visits across products I&apos;ve built
               </p>
-              <p className="text-5xl font-semibold tracking-tight text-white tabular-nums sm:text-6xl">
-                {numberFormatter.format(estimatedVisits)}
+              <p className="flex flex-wrap items-end gap-x-3 gap-y-1 text-white">
+                <span className="text-5xl font-semibold tracking-tight tabular-nums sm:text-6xl">
+                  {numberFormatter.format(estimatedVisits)}
+                </span>
+                <span className="pb-1 text-sm font-medium tracking-[0.04em] text-white/72 sm:text-base">
+                  visits and growing
+                </span>
               </p>
             </div>
           </div>
