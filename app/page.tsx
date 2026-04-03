@@ -223,7 +223,7 @@ const recruiterFAQ = [
   {
     question: "What kinds of roles are the best fit?",
     answer:
-      "AI engineering, data engineering, and startup roles where technical ownership spans architecture through shipping.",
+      "AI engineering, data engineering, operations automation engineer, and startup roles where technical ownership spans architecture through shipping.",
   },
   {
     question: "What is the fastest way to reach out?",
@@ -244,12 +244,6 @@ const personJsonLd = {
   url: "https://austinknapp.com",
   jobTitle: "AI & Data Engineer | Founder",
   email: "mailto:austinknapp155@gmail.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "New York Metropolitan Area",
-    addressRegion: "NJ",
-    addressCountry: "US",
-  },
   sameAs: [
     "https://linkedin.com/in/austinknapp15",
     "https://github.com/deej8888",

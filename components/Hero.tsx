@@ -191,19 +191,7 @@ export default function Hero() {
               </p>
             </article>
 
-            <div className="grid gap-3 sm:grid-cols-2">
-              <article className="hero-note">
-                <p className="text-[0.68rem] font-semibold tracking-[0.26em] text-white/50 uppercase">
-                  Base
-                </p>
-                <p className="relative mt-3 text-lg font-semibold text-white">
-                  New Jersey / New York Metro
-                </p>
-                <p className="relative mt-1 text-sm text-[var(--muted)]">
-                  Open to remote and hybrid work.
-                </p>
-              </article>
-
+            <div className="grid gap-3">
               <article className="hero-note">
                 <p className="text-[0.68rem] font-semibold tracking-[0.26em] text-white/50 uppercase">
                   Reach
